@@ -42,7 +42,9 @@ graph LR
     F -- Executes Query --> D;
     C -- Generates Response with Sources --> G(User Response);
     D -- Analyzes Data & Recommends Visualizations --> H(Summary & Visualizations);
-    G --> A;
+    G --> Human in the Loop --> I(Agentic Action);
+    I --> User Confirmation --> A;
+    A --> User Authorization --> I(Agentic Action);
     H --> A;
     subgraph Data Sources
         E
