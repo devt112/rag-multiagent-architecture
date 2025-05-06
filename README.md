@@ -40,8 +40,8 @@ graph LR
     C -- Uses Tools --> E(Vectorstore);
     D -- Converts to SQL --> F(PostgreSQL Database);
     F -- Executes Query --> D;
-    C -- Generates Response with Sources --> G[User Response (with References)];
-    D -- Analyzes Data & Recommends Visualizations --> H[User Response (Summary & Visualizations)];
+    C -- Generates Response with Sources --> G(User Response);
+    D -- Analyzes Data & Recommends Visualizations --> H(Summary & Visualizations);
     G --> A;
     H --> A;
     subgraph Data Sources
