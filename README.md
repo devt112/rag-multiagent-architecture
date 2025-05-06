@@ -37,7 +37,7 @@ graph LR
     A[User Query] --> B(Supervisor Agent);
     B -- Route to RAG --> C(RAG Agentic AI);
     B -- Route to NLP to SQL --> D(NLP to SQL Agent);
-    C -- Uses Tools --> E{Confluence & Jira (Vectorstore)};
+    C -- Uses Tools --> E(Vectorstore);
     D -- Converts to SQL --> F(PostgreSQL Database);
     F -- Executes Query --> D;
     C -- Generates Response with Sources --> G[User Response (with References)];
