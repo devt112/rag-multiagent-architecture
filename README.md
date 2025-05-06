@@ -48,5 +48,6 @@ graph LR
         E
         F
     end
+```
 ![alt text](supervisor-workflow.jpg)
 ![alt text](feedback-loop.jpg)
