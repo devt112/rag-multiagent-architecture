@@ -1,0 +1,138 @@
+# runbook_schema.yaml
+#
+# Schema for defining runbooks that interact with automation systems for user management.
+# This schema supports creating, updating, and resetting user passwords.
+#
+# Key Features:
+# - Defines actions that can be performed.
+# - Specifies input parameters for each action.
+# - Defines the type of input expected from the user.
+# - Supports different input types (text, multiple choice, boolean).
+# - Provides descriptions and validation rules for each parameter.
+# - Includes a version for schema management.
+# - Supports different execution drivers (e.g., GitHub Actions, Jenkins).
+#
+# Intended Use:
+# This schema is used to generate forms or prompts for users to gather
+# the necessary information to execute an automation workflow.  This is part
+# of a "human-in-the-loop" process.
+
+schema_version: "1.1"  # Version of this schema
+
+runbook:
+  name: "User Management" # Overall name of the runbook
+  description: "Manage user accounts (create, update password, reset password) using various automation drivers."
+  # Removed global github_repo parameter.  Now it's part of the driver.
+
+  actions:
+    - name: "Create User"
+      description: "Create a new user account."
+      driver: "github_action" # or "jenkins_pipeline", etc.
+      driver_config:
+        github_repo: "https://github.com/my-org/my-repo" # Required for github_action
+        workflow_path: "workflows/create_user.yml" # Path to the workflow file within the repo.
+      parameters:
+        - name: "username"
+          description: "The username for the new user."
+          type: "text"
+          required: true
+          validation:
+            min_length: 3
+            max_length: 32
+            regex: "^[a-z0-9_-]+$"
+          display_name: "Username"
+        - name: "email"
+          description: "The email address for the new user."
+          type: "text"
+          required: true
+          validation:
+            format: "email"
+          display_name: "Email Address"
+        - name: "role"
+          description: "The role for the new user."
+          type: "choice"
+          required: true
+          options:
+            - "member"
+            - "admin"
+            - "collaborator"
+          display_name: "User Role"
+        - name: "send_invite"
+          description: "Send an invitation email to the user."
+          type: "boolean"
+          required: true
+          display_name: "Send Invitation Email"
+      confirmation_message: "Are you sure you want to create user: {username} with email: {email} and role: {role}?"
+
+    - name: "Update Password"
+      description: "Update the password for an existing user."
+      driver: "github_action"
+      driver_config:
+        github_repo: "https://github.com/my-org/my-repo"
+        workflow_path: "workflows/update_password.yml"
+      parameters:
+        - name: "username"
+          description: "The username of the user whose password will be updated."
+          type: "text"
+          required: true
+          validation:
+            min_length: 3
+            max_length: 32
+            regex: "^[a-z0-9_-]+$"
+          display_name: "Username"
+        - name: "new_password"
+          description: "The new password for the user."
+          type: "text"
+          required: true
+          secret: true
+          validation:
+            min_length: 8
+            regex: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$"
+          display_name: "New Password"
+      confirmation_message: "Are you sure you want to update the password for user: {username}?"
+
+    - name: "Reset Password"
+      description: "Reset the password for an existing user (admin action)."
+      driver: "github_action"
+      driver_config:
+        github_repo: "https://github.com/my-org/my-repo"
+        workflow_path: "workflows/reset_password.yml"
+      parameters:
+        - name: "username"
+          description: "The username of the user whose password will be reset."
+          type: "text"
+          required: true
+          validation:
+            min_length: 3
+            max_length: 32
+            regex: "^[a-z0-9_-]+$"
+          display_name: "Username"
+        - name: "reset_method"
+          description: "Method to use for resetting the password."
+          type: "choice"
+          required: true
+          options:
+            - "email"
+            - "temp_password"
+          display_name: "Reset Method"
+      confirmation_message: "Are you sure you want to reset the password for user: {username} using method: {reset_method}?"
+
+    - name: "Send Notification"
+      description: "Send an email notification."
+      driver: "email"
+      driver_config:
+        smtp_server: "smtp.example.com"
+        smtp_port: 587
+        sender_email: "noreply@example.com"
+        use_tls: true
+        subject: "Default Subject" # Added to driver_config
+        body: "Default Email Body"    # Added to driver_config
+        attachment_path: ""  # Added to driver_config, with a default value
+      parameters:
+        - name: "recipient_email"
+          description: "The email address of the recipient."
+          type: "text"
+          required: true
+          validation:
+            format: "email"
+          display_name: "Recipient Email"

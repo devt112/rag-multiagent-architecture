@@ -1,0 +1,144 @@
+header {
+    display: none !important;
+}
+
+/* .stSidebar {
+    background-color: #001F3F;
+} */
+
+.stChatMessage [data-testid="stChatMessage"] {
+    border: 1px solid lightgray;
+}
+
+/* div[data-testid="stSidebarContent"] > div[data-testid="stSidebarHeader"] {
+    padding: 0.15rem 0.5rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    border-bottom: lightgray 1px solid;
+} */
+
+/* div[class="stRadio"][data-testid="stRadio"] > label[data-testid="stWidgetLabel"] {
+    border-bottom: 1px solid lightgray;
+}
+
+div[class="stRadio"][data-testid="stRadio"] > label[data-testid="stWidgetLabel"] > div[data-testid="stMarkdownContainer"] > p {
+    font-size:1.1rem;
+    font-weight: bold;
+} */
+
+/* .stLogo {
+    height: 4rem;
+    margin: 0;
+    z-index: 9999;
+    object-fit: contain;
+    vertical-align: middle;
+} */
+
+div[data-baseweb="tab-list"][role="tablist"] > button > div[data-testid="stMarkdownContainer"] > p {
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* .stTooltipIcon svg {
+    stroke: white !important;
+}
+
+[data-testid="stWidgetLabel"] {
+    color: white !important;
+}
+
+.st-key-data_source_selector [data-testid="stMarkdownContainer"] {
+    color: white !important;
+} */
+
+.stMainBlockContainer {
+    padding: 0 2rem !important;
+}
+
+.stVerticalBlock {
+    gap: 0 !important;
+}
+
+.st-container {
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.st-key-dvt-info > .stElementContainer > div {
+    display: flex;
+    justify-content: center;
+}
+
+.st-key-dvt-info {
+    position: fixed;
+    background-color: white;
+    top: 0;
+    z-index: 999999;
+    border-bottom: 0.04rem solid #656c76e0
+}
+
+/* .stButton {
+    color: #001F3F;
+}
+
+.stButton > button[kind="secondary"] {
+    height: 80px;
+} */
+
+/* .stButton > button > div[data-testid="stMarkdownContainer"] > p {
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+.st-key-kb-settings {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+}
+
+/* .stHeading > div > h3 {
+    color: white !important;
+} */
+
+button[kind="tertiary"] {
+    /* color: white; */
+    align-items: start;
+    justify-content: start;
+    max-height: 1rem;
+    min-height: 1rem;
+}
+
+button[kind="tertiary"] > div[data-testid="stMarkdownContainer"] > p {
+    font-size: small;
+}
+
+hr[id="chat_divider"] {
+    margin: 1em !important;
+    border-bottom: 1px solid #001F3F !important;
+}
+
+/* .st-key-return_active_session > .stButton {
+    display: flex;
+    justify-content: center;
+} */
+
+/* .stBottom[data-testid="stBottom"] > div > div[data-testid="stBottomBlockContainer"] {
+    padding: 1rem 1rem 1.5rem;
+} */
+
+div[data-testid="stForm"] {
+    padding: calc(-1px + 0.5rem) calc(-1px + 1rem);
+}
+
+button[kind="pills"][data-testid="stBaseButton-pills"] {
+    min-width: 80px;
+    background-color: red;
+    color: white;
+}
+
+button[kind="pillsActive"][data-testid="stBaseButton-pillsActive"] {
+    min-width: 80px;
+}

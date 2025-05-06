@@ -1,0 +1,46 @@
+ARG PROJECT_ID=apps-ic-bat-dev-npe-2c9a
+FROM marketplace.gcr.io/google/debian11:latest
+
+USER root
+
+# Install dependencies needed for building Python and other tools
+RUN apt-get update && \
+    apt-get install -y \
+    curl \
+    software-properties-common \
+    wget unzip libpq-dev build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
+    # Add these for SSL support which is often needed by pip
+    libssl-dev openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+
+# Download and extract Python.  Using specific version is good.
+RUN wget https://nrm.us..com/repository/iaas-container-imaging-aritifacts/gcp_container_artifacts/Python/3.10.11/Python-3.10.11.tar.xz && \
+    tar -xf Python-3.10.11.tar.xz && \
+    rm Python-3.10.11.tar.xz
+
+WORKDIR /tmp/Python-3.10.11
+
+
+RUN ./configure --enable-optimizations --with-ensurepip
+RUN make -j$(nproc)
+RUN make altinstall
+
+RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.10 100 && \
+    update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.10 100
+	
+RUN python --version
+RUN pip --version
+
+WORKDIR /app
+COPY . . 
+# or COPY ../../ask-dvt .
+
+RUN ls -la
+
+RUN pip install --index-url https://nrm.us..com/repository/efxpypi/simple/ --extra-index-url=https://nrm.us..com/repository/pypiregistry/ -r requirements.txt
+
+EXPOSE 5000
+
+CMD ["python", "api/retrieval/app.py"]
