@@ -1,0 +1,21 @@
+[client]
+toolbarMode = "minimal"
+showErrorDetails = "full"
+showSidebarNavigation = false
+
+[theme]
+base = "dark"
+
+[runner]
+enforceSerializableSessionState = false
+
+[server]
+runOnSave = true
+baseUrlPath = "askgbp-engine"
+enableStaticServing = true
+
+[browser]
+gatherUsageStats = false
+
+[ui]
+hideTopBar = true
